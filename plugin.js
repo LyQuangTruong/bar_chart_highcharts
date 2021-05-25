@@ -229,21 +229,25 @@ ScatterChart.prototype.addData = function (data) {
 
   if (data instanceof Array) {
     var category = this.settings.VerticalAxis;
+    console.log("catagory", category);
     var value = this.settings.HorizontalAxis;
     var legend = this.settings.Legend;
+    console.log("legend", legend);
     var ts = this.settings.Timestamp;
     var limit = this.settings.Limit;
+    console.log("limit", limit);
 
     this.filteredData = data
       .filter((d) => {
         // console.log('d.hasOwnProperty(category);', d.hasOwnProperty("category"))
         let hasLabel = d.hasOwnProperty("category");
+        console.log("category", "category");
         const dLabel = d["category"];
         if (typeof dLabel !== "string") {
           fireError("VerticalAxis is not a string");
           hasLabel = false;
         }
-        console.log("hasLabel category", hasLabel);
+        // console.log("hasLabel category", hasLabel);
         return hasLabel;
       })
       .filter((d) => {
@@ -253,7 +257,7 @@ ScatterChart.prototype.addData = function (data) {
           fireError("VerticalAxis is not a string or number");
           hasLabel = false;
         }
-        console.log("hasLabel value", hasLabel);
+        // console.log("hasLabel value", hasLabel);
         return hasLabel;
       })
       .filter((d) => {
@@ -262,20 +266,20 @@ ScatterChart.prototype.addData = function (data) {
           fireError("timestamp is not a number");
           hasTs = false;
         }
-        console.log("hasTs ts", hasTs);
+        // console.log("hasTs ts", hasTs);
         return hasTs;
       })
       .sort((a, b) => b.ts - a.ts);
-    console.log("this.filteredData", this.filteredData);
+    // console.log("this.filteredData", this.filteredData);
     if (this.filteredData.length === 0) {
       return;
     }
     this.data = d3
       .nest()
       .key(function (d) {
-        console.log("d", d);
+        // console.log("d", d);
         console.log("d[legend]", d[legend]);
-        return d["legend"];
+        return d[legend];
       })
       .entries(this.filteredData)
       .map(function (d, i) {
