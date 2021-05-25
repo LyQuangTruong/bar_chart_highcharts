@@ -5,13 +5,13 @@ var colData = [];
 var tempSeries = [];
 
 ScatterChart.defaultSettings = {
-  VerticalAxis: "temperature",
+  VerticalAxis: "catagory",
   MaxV: "100",
   MinV: "0",
-  HorizontalAxis: "humidity",
+  HorizontalAxis: "value",
   MaxH: "100",
   MinH: "0",
-  Legend: "Place",
+  Legend: "category",
   Timestamp: "ts",
   Limit: "10",
   Tooltip: [
@@ -78,6 +78,7 @@ ScatterChart.settings = EnebularIntelligence.SchemaProcessor(
 );
 
 function createScatterChart(that) {
+  // console.log("tempSeries", tempSeries);
   if (tempSeries != []) tempSeries = [];
   ConvertDataAPI(tooltipCheckExist, vertical, horizontal, timestamp);
 
@@ -136,44 +137,43 @@ function createScatterChart(that) {
         tooltip: {
           headerFormat: "",
           pointFormatter: function () {
-            var pointChart = this.series.userOptions;
-            var tool_str =
-              that.settings.Legend +
-              ": " +
-              pointChart.name +
-              "<br>" +
-              that.settings.VerticalAxis +
-              ": " +
-              pointChart.data[this.index][1] +
-              "<br>" +
-              that.settings.HorizontalAxis +
-              ": " +
-              pointChart.data[this.index][0];
-
-            var dateObj = new Date(pointChart.ts[this.index]);
-            var timeDate = "";
-            var minutes = dateObj.getMinutes();
-            minutes = minutes > 9 ? minutes : "0" + minutes;
-            if (!isNaN(dateObj.getTime())) {
-              timeDate =
-                dateObj.getMonth() +
-                1 +
-                "/" +
-                dateObj.getDate() +
-                " " +
-                dateObj.getHours() +
-                ":" +
-                minutes;
-            } else {
-              timeDate = pointChart.ts[this.index];
-            }
-            if (timestamp)
-              tool_str += "<br>" + that.settings.Timestamp + ": " + timeDate;
-            var arr_tmp = pointChart.tooltipArr[this.index];
-            tooltipCheckExist.forEach(function (val, i) {
-              tool_str += "<br>" + val + ": " + arr_tmp[i];
-            });
-            return tool_str;
+            // var pointChart = this.series.userOptions;
+            // var tool_str =
+            //   that.settings.Legend +
+            //   ": " +
+            //   pointChart.name +
+            //   "<br>" +
+            //   that.settings.VerticalAxis +
+            //   ": " +
+            //   pointChart.data[this.index][1] +
+            //   "<br>" +
+            //   that.settings.HorizontalAxis +
+            //   ": " +
+            //   pointChart.data[this.index][0];
+            // var dateObj = new Date(pointChart.ts[this.index]);
+            // var timeDate = "";
+            // var minutes = dateObj.getMinutes();
+            // minutes = minutes > 9 ? minutes : "0" + minutes;
+            // if (!isNaN(dateObj.getTime())) {
+            //   timeDate =
+            //     dateObj.getMonth() +
+            //     1 +
+            //     "/" +
+            //     dateObj.getDate() +
+            //     " " +
+            //     dateObj.getHours() +
+            //     ":" +
+            //     minutes;
+            // } else {
+            //   timeDate = pointChart.ts[this.index];
+            // }
+            // if (timestamp)
+            //   tool_str += "<br>" + that.settings.Timestamp + ": " + timeDate;
+            // var arr_tmp = pointChart.tooltipArr[this.index];
+            // tooltipCheckExist.forEach(function (val, i) {
+            //   tool_str += "<br>" + val + ": " + arr_tmp[i];
+            // });
+            // return tool_str;
           },
         },
       },
@@ -218,7 +218,7 @@ function ScatterChart(settings, options) {
 
 ScatterChart.prototype.addData = function (data) {
   var that = this;
-  console.log(data);
+  // console.log(data);
   function fireError(err) {
     if (that.errorCallback) {
       that.errorCallback({
@@ -229,20 +229,21 @@ ScatterChart.prototype.addData = function (data) {
 
   if (data instanceof Array) {
     var category = this.settings.VerticalAxis;
-    var humidity = this.settings.HorizontalAxis;
-    console.log(humidity);
+    var value = this.settings.HorizontalAxis;
     var legend = this.settings.Legend;
-    var timestamp = this.settings.Timestamp;
+    var ts = this.settings.Timestamp;
     var limit = this.settings.Limit;
 
     this.filteredData = data
       .filter((d) => {
-        let hasLabel = d.hasOwnProperty(category);
-        const dLabel = d[category];
+        // console.log('d.hasOwnProperty(category);', d.hasOwnProperty("category"))
+        let hasLabel = d.hasOwnProperty("category");
+        const dLabel = d["category"];
         if (typeof dLabel !== "string") {
           fireError("VerticalAxis is not a string");
           hasLabel = false;
         }
+        console.log("hasLabel category", hasLabel);
         return hasLabel;
       })
       .filter((d) => {
@@ -252,32 +253,36 @@ ScatterChart.prototype.addData = function (data) {
           fireError("VerticalAxis is not a string or number");
           hasLabel = false;
         }
+        console.log("hasLabel value", hasLabel);
         return hasLabel;
       })
       .filter((d) => {
         let hasTs = d.hasOwnProperty(ts);
-        if (isNaN(d[timestamp])) {
+        if (isNaN(d[ts])) {
           fireError("timestamp is not a number");
           hasTs = false;
         }
+        console.log("hasTs ts", hasTs);
         return hasTs;
       })
-      .sort((a, b) => b.timestamp - a.timestamp);
-
+      .sort((a, b) => b.ts - a.ts);
+    console.log("this.filteredData", this.filteredData);
     if (this.filteredData.length === 0) {
       return;
     }
     this.data = d3
       .nest()
       .key(function (d) {
-        return d[legend];
+        console.log("d", d);
+        console.log("d[legend]", d[legend]);
+        return d["legend"];
       })
       .entries(this.filteredData)
       .map(function (d, i) {
-        d.values = d.values.filter(function (dd, ii) {
-          if (!isNaN(limit)) return ii < limit;
-          return ii;
-        });
+        // d.values = d.values.filter(function (dd, ii) {
+        //   if (!isNaN(limit)) return ii < limit;
+        //   return ii;
+        // });
         return d;
       })
       .sort(function (a, b) {
@@ -309,8 +314,11 @@ var horizontal = "";
 var timestamp = "";
 
 function ConvertDataAPI(tooltipCheckExist, vertical, horizontal, timestamp) {
+  /** console.log("tooltipCheckExist", tooltipCheckExist, vertical, timestamp); */
   tempSeries = [];
+  // console.log("colData", colData);
   colData.forEach(function (val, index) {
+    // console.log("val", val);
     var dataVal = [];
     var tooltipVal = [];
 
