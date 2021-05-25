@@ -61,10 +61,10 @@ ScatterChart.settings = EnebularIntelligence.SchemaProcessor([{
 function createScatterChart(that) {
     if(tempSeries != []) tempSeries = [];
     ConvertDataAPI(tooltipCheckExist, vertical, horizontal, timestamp);
-    
+
     that.scatterChartC3 = Highcharts.chart('root', {
         chart: {
-            type: 'scatter',
+            type: 'line',
             zoomType: 'xy'
         },
         title:{
@@ -74,15 +74,15 @@ function createScatterChart(that) {
             title: {
                 enabled: true,
                 text: that.settings.HorizontalAxis
-            },                
+            },
             min: parseInt(that.settings.MinH),
-            max: parseInt(that.settings.MaxH)  
+            max: parseInt(that.settings.MaxH)
         },
         yAxis: {
             title: {
                 enabled: true,
                 text: that.settings.VerticalAxis
-            }, 
+            },
             min: parseInt(that.settings.MinV),
             max: parseInt(that.settings.MaxV)
         },
@@ -118,7 +118,7 @@ function createScatterChart(that) {
                     headerFormat: '',
                     pointFormatter: function() {
                         var pointChart = this.series.userOptions;
-                        var tool_str = that.settings.Legend + ': ' + pointChart.name 
+                        var tool_str = that.settings.Legend + ': ' + pointChart.name
                                     + '<br>' + that.settings.VerticalAxis + ': ' + pointChart.data[this.index][1]
                                     + '<br>' + that.settings.HorizontalAxis + ': ' + pointChart.data[this.index][0];
 
@@ -131,14 +131,14 @@ function createScatterChart(that) {
                             timeDate = (dateObj.getMonth() + 1) + '/' + dateObj.getDate() + " " + dateObj.getHours() + ':' + minutes;
                         } else {
                             timeDate = pointChart.ts[this.index];
-                        } 
+                        }
                         if(timestamp) tool_str += '<br>' + that.settings.Timestamp + ': ' + timeDate;
                         var arr_tmp = pointChart.tooltipArr[this.index];
                         tooltipCheckExist.forEach(function(val, i) {
                             tool_str += '<br>' + val + ': ' + arr_tmp[i];
                         })
                         return tool_str;
-                    } 
+                    }
                 }
             }
         },
@@ -172,7 +172,7 @@ function ScatterChart(settings, options) {
 
 ScatterChart.prototype.addData = function(data) {
     var that = this;
-
+    console.log(data);
     function fireError(err) {
         if (that.errorCallback) {
             that.errorCallback({
@@ -184,10 +184,11 @@ ScatterChart.prototype.addData = function(data) {
     if (data instanceof Array) {
         var temperature = this.settings.VerticalAxis
         var humidity = this.settings.HorizontalAxis
+        console.log(humidity);
         var legend = this.settings.Legend
         var timestamp = this.settings.Timestamp
         var limit = this.settings.Limit
-        
+
 
         this.filteredData = data
             .filter(d => {
@@ -199,24 +200,6 @@ ScatterChart.prototype.addData = function(data) {
                 }
                 return hasLabel
             })
-            .filter(d => {
-                let hasLabel = d.hasOwnProperty(humidity)
-                const dLabel = d[humidity]
-                if (typeof dLabel !== 'string' && typeof dLabel !== 'number') {
-                    fireError('HorizontalAxis is not a string or number')
-                    hasLabel = false
-                }
-                return hasLabel
-            })
-            .filter(d => {
-                let hasLabel = d.hasOwnProperty(legend)
-                const dLabel = d[legend]
-                if (typeof dLabel !== 'string' && typeof dLabel !== 'number') {
-                    fireError('legend is not a string or number')
-                    hasLabel = false
-                }
-                return hasLabel
-            })            
             .filter(d => {
                 let hasTs = d.hasOwnProperty(timestamp)
                 if (isNaN(d[timestamp])) {
@@ -279,19 +262,19 @@ function ConvertDataAPI(tooltipCheckExist, vertical, horizontal, timestamp) {
         var tooltipVal = [];
 
         var tsArr = [];
-        
+
         for(var i = 0; i < val.values.length; i++) {
             var temp = [];
             temp.push(colData[index]["values"][i][horizontal], colData[index]["values"][i][vertical]);
             dataVal.push(temp);
 
-            tsArr.push(colData[index]["values"][i][timestamp]); 
+            tsArr.push(colData[index]["values"][i][timestamp]);
 
             var tempArr = [];
             tooltipCheckExist.forEach(function(element) {
                 tempArr.push(colData[index]["values"][i][element])
             })
-            tooltipVal.push(tempArr);            
+            tooltipVal.push(tempArr);
         }
         tempSeries.push({
             'data':dataVal,
@@ -346,11 +329,11 @@ ScatterChart.prototype.refresh = function() {
         })
     }
     if(tempSeries.length == 0 && defaultData.length > 0) tempSeries = defaultData;
-  
+
     if (that.scatterChartC3) {
         that.scatterChartC3 = Highcharts.chart('root', {
             chart: {
-                type: 'scatter',
+                type: 'line',
                 zoomType: 'xy'
             },
             title:{
@@ -360,15 +343,15 @@ ScatterChart.prototype.refresh = function() {
                 title: {
                     enabled: true,
                     text: that.settings.HorizontalAxis
-                },                
+                },
                 min: parseInt(that.settings.MinH),
-                max: parseInt(that.settings.MaxH)  
+                max: parseInt(that.settings.MaxH)
             },
             yAxis: {
                 title: {
                     enabled: true,
                     text: that.settings.VerticalAxis
-                }, 
+                },
                 min: parseInt(that.settings.MinV),
                 max: parseInt(that.settings.MaxV)
             },
@@ -404,7 +387,7 @@ ScatterChart.prototype.refresh = function() {
                         headerFormat: '',
                         pointFormatter: function() {
                             var pointChart = this.series.userOptions;
-                            var tool_str = that.settings.Legend + ': ' + pointChart.name 
+                            var tool_str = that.settings.Legend + ': ' + pointChart.name
                                         + '<br>' + that.settings.VerticalAxis + ': ' + pointChart.data[this.index][1]
                                         + '<br>' + that.settings.HorizontalAxis + ': ' + pointChart.data[this.index][0];
 
@@ -417,14 +400,14 @@ ScatterChart.prototype.refresh = function() {
                                 timeDate = (dateObj.getMonth() + 1) + '/' + dateObj.getDate() + " " + dateObj.getHours() + ':' + minutes
                             } else {
                                 timeDate = pointChart.ts[this.index];
-                            } 
+                            }
                             if(timestamp) tool_str += '<br>' + that.settings.Timestamp + ': ' + timeDate;
                             var arr_tmp = pointChart.tooltipArr[this.index];
                             tooltipCheckExist.forEach(function(val, i) {
                                 tool_str += '<br>' + val + ': ' + arr_tmp[i];
                             })
                             return tool_str;
-                        } 
+                        }
                     }
                 }
             },
