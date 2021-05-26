@@ -9,6 +9,8 @@
     "Legend": "Place",
     "Timestamp": "ts",
     "Limit": "100",
+    "Format": "YYYY/MM/DD",
+    "Title": "Bar Chart high charts",
     "Tooltip": [
       {
         "tag": ""
@@ -18,33 +20,253 @@
   "sampleData": [
     {
       "category": "temperature",
-      "ts": 1622017608331,
-      "value": 28.21
+      "ts": 1622022373231,
+      "value": 28.12
     },
     {
       "category": "humidity",
-      "ts": 1622017608331,
-      "value": 59.550000000000004
+      "ts": 1622022373231,
+      "value": 57.660000000000004
+    },
+    {
+      "category": "humidity",
+      "ts": 1622022374225,
+      "value": 57.660000000000004
     },
     {
       "category": "temperature",
-      "ts": 1622017668333,
-      "value": 28.16
-    },
-    {
-      "category": "humidity",
-      "ts": 1622017668333,
-      "value": 59.29
+      "ts": 1622022374225,
+      "value": 28.12
     },
     {
       "category": "temperature",
-      "ts": 1622017728332,
-      "value": 28.11
+      "ts": 1622022375207,
+      "value": 28.12
     },
     {
       "category": "humidity",
-      "ts": 1622017728332,
-      "value": 59.2
+      "ts": 1622022375207,
+      "value": 57.660000000000004
+    },
+    {
+      "category": "humidity",
+      "ts": 1622022376196,
+      "value": 57.660000000000004
+    },
+    {
+      "category": "temperature",
+      "ts": 1622022376196,
+      "value": 28.12
+    },
+    {
+      "category": "temperature",
+      "ts": 1622022377216,
+      "value": 28.12
+    },
+    {
+      "category": "humidity",
+      "ts": 1622022377216,
+      "value": 57.660000000000004
+    },
+    {
+      "category": "humidity",
+      "ts": 1622022378266,
+      "value": 57.660000000000004
+    },
+    {
+      "category": "temperature",
+      "ts": 1622022378266,
+      "value": 28.12
+    },
+    {
+      "category": "humidity",
+      "ts": 1622022379225,
+      "value": 57.660000000000004
+    },
+    {
+      "category": "temperature",
+      "ts": 1622022379225,
+      "value": 28.12
+    },
+    {
+      "category": "humidity",
+      "ts": 1622022380186,
+      "value": 57.660000000000004
+    },
+    {
+      "category": "temperature",
+      "ts": 1622022380186,
+      "value": 28.12
+    },
+    {
+      "category": "humidity",
+      "ts": 1622022381237,
+      "value": 57.660000000000004
+    },
+    {
+      "category": "temperature",
+      "ts": 1622022381237,
+      "value": 28.12
+    },
+    {
+      "category": "temperature",
+      "ts": 1622022382258,
+      "value": 28.12
+    },
+    {
+      "category": "humidity",
+      "ts": 1622022382258,
+      "value": 57.660000000000004
+    },
+    {
+      "category": "humidity",
+      "ts": 1622022383296,
+      "value": 57.660000000000004
+    },
+    {
+      "category": "temperature",
+      "ts": 1622022383296,
+      "value": 28.12
+    },
+    {
+      "category": "temperature",
+      "ts": 1622022384209,
+      "value": 28.12
+    },
+    {
+      "category": "humidity",
+      "ts": 1622022384209,
+      "value": 57.660000000000004
+    },
+    {
+      "category": "humidity",
+      "ts": 1622022385226,
+      "value": 57.660000000000004
+    },
+    {
+      "category": "temperature",
+      "ts": 1622022385226,
+      "value": 28.12
+    },
+    {
+      "category": "humidity",
+      "ts": 1622022386277,
+      "value": 57.660000000000004
+    },
+    {
+      "category": "temperature",
+      "ts": 1622022386277,
+      "value": 28.12
+    },
+    {
+      "category": "temperature",
+      "ts": 1622022387265,
+      "value": 28.12
+    },
+    {
+      "category": "humidity",
+      "ts": 1622022387265,
+      "value": 57.660000000000004
+    },
+    {
+      "category": "temperature",
+      "ts": 1622022388215,
+      "value": 28.12
+    },
+    {
+      "category": "humidity",
+      "ts": 1622022388215,
+      "value": 57.660000000000004
+    },
+    {
+      "category": "humidity",
+      "ts": 1622022389303,
+      "value": 57.660000000000004
+    },
+    {
+      "category": "temperature",
+      "ts": 1622022389303,
+      "value": 28.12
+    },
+    {
+      "category": "temperature",
+      "ts": 1622022390210,
+      "value": 28.12
+    },
+    {
+      "category": "humidity",
+      "ts": 1622022390210,
+      "value": 57.660000000000004
+    },
+    {
+      "category": "humidity",
+      "ts": 1622022391319,
+      "value": 57.660000000000004
+    },
+    {
+      "category": "temperature",
+      "ts": 1622022391319,
+      "value": 28.12
+    },
+    {
+      "category": "humidity",
+      "ts": 1622022392189,
+      "value": 57.660000000000004
+    },
+    {
+      "category": "temperature",
+      "ts": 1622022392189,
+      "value": 28.12
+    },
+    {
+      "category": "temperature",
+      "ts": 1622022393207,
+      "value": 28.12
+    },
+    {
+      "category": "humidity",
+      "ts": 1622022393207,
+      "value": 57.660000000000004
+    },
+    {
+      "category": "humidity",
+      "ts": 1622022394233,
+      "value": 57.660000000000004
+    },
+    {
+      "category": "temperature",
+      "ts": 1622022394233,
+      "value": 28.12
+    },
+    {
+      "category": "humidity",
+      "ts": 1622022395247,
+      "value": 57.660000000000004
+    },
+    {
+      "category": "temperature",
+      "ts": 1622022395247,
+      "value": 28.12
+    },
+    {
+      "category": "humidity",
+      "ts": 1622022396268,
+      "value": 57.660000000000004
+    },
+    {
+      "category": "temperature",
+      "ts": 1622022396268,
+      "value": 28.12
+    },
+    {
+      "category": "temperature",
+      "ts": 1622022397197,
+      "value": 28.12
+    },
+    {
+      "category": "humidity",
+      "ts": 1622022397197,
+      "value": 57.660000000000004
     }
   ],
   "settingSchema": [
