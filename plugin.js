@@ -6,7 +6,7 @@ var colData = [];
 var tempSeries = [];
 var categoryX = [];
 
-ScatterChart.defaultSettings = {
+BarChartHighChart.defaultSettings = {
   HorizontalAxis: "value",
   Legend: "category",
   Timestamp: "ts",
@@ -14,7 +14,7 @@ ScatterChart.defaultSettings = {
   Title: "Bar Chart high charts",
 };
 
-ScatterChart.settings = EnebularIntelligence.SchemaProcessor(
+BarChartHighChart.settings = EnebularIntelligence.SchemaProcessor(
   [
     {
       type: "text",
@@ -26,13 +26,13 @@ ScatterChart.settings = EnebularIntelligence.SchemaProcessor(
       options: ["YYYY/MM/DD", "MM/YYYY"],
     },
   ],
-  ScatterChart.defaultSettings
+  BarChartHighChart.defaultSettings
 );
 
-function createScatterChart(that) {
+function createBarChartHighChart(that) {
   if (tempSeries != []) tempSeries = [];
   ConvertDataAPI(that);
-  that.scatterChartC3 = Highcharts.chart("root", {
+  that.barChartHighChartC3 = Highcharts.chart("root", {
     chart: {
       type: "spline",
     },
@@ -99,7 +99,7 @@ function createScatterChart(that) {
   });
 }
 
-function ScatterChart(settings, options) {
+function BarChartHighChart(settings, options) {
   var that = this;
   this.el = window.document.createElement("div");
   this.el.id = "chart";
@@ -116,11 +116,11 @@ function ScatterChart(settings, options) {
   this.margin = { top: 20, right: 80, bottom: 30, left: 50 };
 
   setTimeout(function () {
-    createScatterChart(that);
+    createBarChartHighChart(that);
   }, 100);
 }
 
-ScatterChart.prototype.addData = function (data) {
+BarChartHighChart.prototype.addData = function (data) {
   console.log(data);
   var that = this;
   function fireError(err) {
@@ -192,14 +192,14 @@ ScatterChart.prototype.addData = function (data) {
   }
 };
 
-ScatterChart.prototype.clearData = function () {
+BarChartHighChart.prototype.clearData = function () {
   this.data = {};
   colData = [];
   tempSeries = [];
   this.refresh();
 };
 
-ScatterChart.prototype.convertData = function () {
+BarChartHighChart.prototype.convertData = function () {
   colData = this.data;
   this.refresh();
 };
@@ -224,13 +224,13 @@ function ConvertDataAPI(that) {
   });
 }
 
-ScatterChart.prototype.resize = function (options) {
+BarChartHighChart.prototype.resize = function (options) {
   this.width = options.width;
   this.height = options.height - 50;
 };
 
 var defaultData = [];
-ScatterChart.prototype.refresh = function () {
+BarChartHighChart.prototype.refresh = function () {
   var that = this;
 
   ConvertDataAPI(that);
@@ -255,8 +255,8 @@ ScatterChart.prototype.refresh = function () {
   if (tempSeries.length == 0 && defaultData.length > 0)
     tempSeries = defaultData;
 
-  if (that.scatterChartC3) {
-    that.scatterChartC3 = Highcharts.chart("root", {
+  if (that.barChartHighChartC3) {
+    that.barChartHighChartC3 = Highcharts.chart("root", {
       chart: {
         type: "spline",
       },
@@ -327,14 +327,14 @@ ScatterChart.prototype.refresh = function () {
   }
 };
 
-ScatterChart.prototype.onError = function (errorCallback) {
+BarChartHighChart.prototype.onError = function (errorCallback) {
   this.errorCallback = errorCallback;
 };
 
-ScatterChart.prototype.getEl = function () {
+BarChartHighChart.prototype.getEl = function () {
   return this.el;
 };
 
-window.EnebularIntelligence.register("scatterchart", ScatterChart);
+window.EnebularIntelligence.register("barChartHighChart", BarChartHighChart);
 
-module.exports = ScatterChart;
+module.exports = BarChartHighChart;
