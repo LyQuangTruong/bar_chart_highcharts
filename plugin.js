@@ -12,26 +12,18 @@ ScatterChart.defaultSettings = {
   Timestamp: "ts",
   Format: "YYYY/MM/DD",
   Title: "Bar Chart high charts",
-  Tooltip: [
-    {
-      tag: "pressure",
-    },
-    {
-      tag: "DeviceName",
-    },
-  ],
 };
 
 ScatterChart.settings = EnebularIntelligence.SchemaProcessor(
   [
     {
+      type: "text",
+      name: "Title",
+    },
+    {
       type: "select",
       name: "Format",
       options: ["YYYY/MM/DD", "MM/YYYY"],
-    },
-    {
-      type: "text",
-      name: "Title",
     },
   ],
   ScatterChart.defaultSettings
@@ -212,12 +204,6 @@ ScatterChart.prototype.convertData = function () {
   this.refresh();
 };
 
-var tooltipCheckExist = [];
-var vertical = "";
-var horizontal = "";
-var timestamp = "";
-var time = [];
-
 function ConvertDataAPI(that) {
   tempSeries = [];
   categoryX = [];
@@ -246,22 +232,7 @@ ScatterChart.prototype.resize = function (options) {
 var defaultData = [];
 ScatterChart.prototype.refresh = function () {
   var that = this;
-  tooltipCheckExist = [];
-  colData.forEach(function (val) {
-    for (var i = 0; i < val.values.length; i++) {
-      that.settings.Tooltip.forEach(function (tooltip) {
-        var toolTipVal = tooltip.value;
-        if (toolTipVal == null) toolTipVal = tooltip.tag;
-        if (val.values[i].hasOwnProperty(toolTipVal)) {
-          if (!tooltipCheckExist.includes(toolTipVal))
-            tooltipCheckExist.push(toolTipVal);
-        }
-      });
-    }
-  });
-  vertical = that.settings.VerticalAxis;
-  horizontal = that.settings.HorizontalAxis;
-  timestamp = that.settings.Timestamp;
+
   ConvertDataAPI(that);
 
   if (this.axisX) this.axisX.remove();
