@@ -1,21 +1,10 @@
 {
   "defaultSettings": {
-    "VerticalAxis": "temperature",
-    "MaxV": "100",
-    "MinV": "0",
-    "HorizontalAxis": "humidity",
-    "MaxH": "100",
-    "MinH": "0",
-    "Legend": "Place",
+    "HorizontalAxis": "value",
+    "Legend": "category",
     "Timestamp": "ts",
-    "Limit": "100",
     "Format": "YYYY/MM/DD",
-    "Title": "Bar Chart high charts",
-    "Tooltip": [
-      {
-        "tag": ""
-      }
-    ]
+    "Title": "Bar Chart high charts"
   },
   "sampleData": [
     {

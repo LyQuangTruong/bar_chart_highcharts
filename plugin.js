@@ -51,16 +51,16 @@ function createBarChartHighChart(that) {
 
     yAxis: {
       title: {
-        text: "Percentage usage",
+        text: "Value",
       },
       accessibility: {
-        description: "Percentage usage",
+        description: "Value",
       },
     },
 
     xAxis: {
       title: {
-        text: "Time",
+        text: "Date",
       },
       categories: categoryX,
     },
@@ -121,7 +121,6 @@ function BarChartHighChart(settings, options) {
 }
 
 BarChartHighChart.prototype.addData = function (data) {
-  console.log(data);
   var that = this;
   function fireError(err) {
     if (that.errorCallback) {
@@ -275,16 +274,16 @@ BarChartHighChart.prototype.refresh = function () {
 
       yAxis: {
         title: {
-          text: "Percentage usage",
+          text: "Value",
         },
         accessibility: {
-          description: "Percentage usage",
+          description: "Value",
         },
       },
 
       xAxis: {
         title: {
-          text: "Time",
+          text: "Date",
         },
         accessibility: {
           description: "Time from December 2010 to September 2019",
