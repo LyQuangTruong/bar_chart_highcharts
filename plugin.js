@@ -141,7 +141,7 @@ BarChartHighChart.prototype.addData = function (data) {
         let hasLabel = d.hasOwnProperty(legend);
         const dLabel = d[legend];
         if (typeof dLabel !== "string") {
-          fireError("VerticalAxis is not a string");
+          fireError("Legend is not a string");
           hasLabel = false;
         }
         return hasLabel;
@@ -150,7 +150,7 @@ BarChartHighChart.prototype.addData = function (data) {
         let hasLabel = d.hasOwnProperty(value);
         const dLabel = d[value];
         if (typeof dLabel !== "string" && typeof dLabel !== "number") {
-          fireError("VerticalAxis is not a string or number");
+          fireError("HorizontalAxis is not a string or number");
           hasLabel = false;
         }
         return hasLabel;
@@ -158,7 +158,7 @@ BarChartHighChart.prototype.addData = function (data) {
       .filter((d) => {
         let hasTs = d.hasOwnProperty(ts);
         if (isNaN(d[ts])) {
-          fireError("timestamp is not a number");
+          fireError("Timestamp is not a number");
           hasTs = false;
         }
         return hasTs;
