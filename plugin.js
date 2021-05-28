@@ -134,12 +134,12 @@ BarChartHighChart.prototype.addData = function (data) {
     var value = this.settings.HorizontalAxis;
     var legend = this.settings.Legend;
     var ts = this.settings.Timestamp;
-    var limit = this.settings.Limit;
+    // var limit = this.settings.Limit;
 
     this.filteredData = data
       .filter((d) => {
-        let hasLabel = d.hasOwnProperty("category");
-        const dLabel = d["category"];
+        let hasLabel = d.hasOwnProperty(legend);
+        const dLabel = d[legend];
         if (typeof dLabel !== "string") {
           fireError("VerticalAxis is not a string");
           hasLabel = false;
@@ -173,13 +173,13 @@ BarChartHighChart.prototype.addData = function (data) {
         return d[legend];
       })
       .entries(this.filteredData)
-      .map(function (d, i) {
-        d.values = d.values.filter(function (dd, ii) {
-          if (!isNaN(limit)) return ii < limit;
-          return ii;
-        });
-        return d;
-      })
+      // .map(function (d, i) {
+      //   d.values = d.values.filter(function (dd, ii) {
+      //     if (!isNaN(limit)) return ii < limit;
+      //     return ii;
+      //   });
+      //   return d;
+      // })
       .sort(function (a, b) {
         if (a.key < b.key) return -1;
         if (a.key > b.key) return 1;
